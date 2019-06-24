@@ -106,6 +106,11 @@ public class StrasbourgServiceUtil {
 		return getService().getTraffic();
 	}
 
+	public static com.liferay.portal.kernel.json.JSONObject readJsonFromURL(
+		java.lang.String url) {
+		return getService().readJsonFromURL(url);
+	}
+
 	public static com.liferay.portal.kernel.json.JSONObject searchStreets(
 		java.lang.String query) {
 		return getService().searchStreets(query);

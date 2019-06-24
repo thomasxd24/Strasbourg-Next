@@ -39,6 +39,33 @@
                         <aui:input name="eventExplanationMap" value="${eventExplanation}" localized="true" type="editor" label="event-explanation-text" />
                     </div>
 
+                    <!-- flux geoJSON -->
+                    <div>
+                        <aui:input type="text" name="urlGeoJSON" cssClass="urlGeoJSON" value="${urlGeoJSON}" label="url-geojson"/>
+                        <aui:button name="linkGeoJSON" cssClass="linkGeoJSON" value="link-geojson" />
+                        <br /><br />
+                        <div class="link">
+                            <aui:select name="visualLink" cssClass="visualLink" label="link-visual"></aui:select>
+                            <aui:select name="nameLink" cssClass="nameLink" label="link-name"></aui:select>
+                            <aui:select name="addressLink" cssClass="addressLink" label="link-address"></aui:select>
+                            <aui:select name="likeLikedLink" cssClass="likeLikedLink" label="Like -> Liked"></aui:select>
+                            <aui:select name="likeHrefLink" cssClass="likeHrefLink" label="Like -> Href"></aui:select>
+                            <aui:select name="openedLink" cssClass="openedLink" label="link-opened"></aui:select>
+                            <aui:select name="schedulesLink" cssClass="schedulesLink" label="link-schedules"></aui:select>
+                            <aui:select name="amountTitleLink" cssClass="amountTitleLink" label="link-amount-title"></aui:select>
+                            <aui:select name="amountFrequentationLink" cssClass="amountFrequentationLink" label="link-amount-frequentation"></aui:select>
+                            <aui:select name="amountLabelLink" cssClass="amountLabelLink" label="link-amount-label"></aui:select>
+                            <aui:select name="amountColorLink" cssClass="amountColorLink" label="link-amount-color"></aui:select>
+                            <aui:select name="urlLink" cssClass="urlLink" label="link-url"></aui:select>
+                            <aui:select name="typeLink" cssClass="typeLink" label="link-type"></aui:select>
+                            <aui:select name="contenuLink" cssClass="contenuLink" label="Contenu"></aui:select>
+                            <aui:select name="idLink" cssClass="idLink" label="link-id"></aui:select>
+                            <aui:select name="sigIdLink" cssClass="sigIdLink" label="SIG Id"></aui:select>
+                            <aui:select name="listeTypesLink" cssClass="listeTypesLink" label="Liste types"></aui:select>
+                            <aui:select name="iconLink" cssClass="iconLink" label="Icon"></aui:select>
+                        </div>
+                    </div>
+
                 </aui:fieldset>
 
                 <!-- Affichage -->
@@ -281,18 +308,28 @@
                            } else {
                                $('.eventExplanation').hide();
                            }
-                        }
-
-                        var refreshConfigTrafficDisplay = function() {
-                               if ($('.infoTraffic input[type=checkbox]').is(":checked")) {
-                                   $('.infoTrafficChecked').show();
-                               } else {
-                                   $('.infoTrafficChecked').hide();
-                               }
+                           $('.link').hide();
                         }
                         $('.modeSelection input[type=radio]').on('change', function() {
                             refreshConfigDisplay();
                         })
+
+                        var refreshConfigTrafficDisplay = function() {
+                           if ($('.infoTraffic input[type=checkbox]').is(":checked")) {
+                               $('.infoTrafficChecked').show();
+                           } else {
+                               $('.infoTrafficChecked').hide();
+                           }
+                        }
+                        $('.infoTraffic input[type=checkbox]').on('change', function() {
+                            refreshConfigTrafficDisplay();
+                        })
+
+                        $(function() {
+                            refreshConfigDisplay();
+                            refreshConfigTrafficDisplay();
+                        })
+
                         $('.typeEvent').on('change', function() {
                                if ($(this).is(":checked")) {
                                    $('.eventExplanation').show();
@@ -300,12 +337,71 @@
                                    $('.eventExplanation').hide();
                                }
                         })
-                        $('.infoTraffic input[type=checkbox]').on('change', function() {
-                            refreshConfigTrafficDisplay();
-                        })
-                        $(function() {
-                            refreshConfigDisplay();
-                            refreshConfigTrafficDisplay();
+
+                        var getOptions = function(parent, json) {
+                            var options = "";
+                            $.each(json, function(attr, value){
+                                if(typeof value =='object')
+                                {
+                                    options += getOptions(((parent != '') ? parent + "->" : "") + attr, value);
+                                }else{
+                                    options += "<option value='" + ((parent != '') ? parent + "->" : "") + attr + "' >" + ((parent != '') ? parent + "->" : "") + attr + "</option>";
+                                }
+                            });
+                            return options;
+                        }
+                        $('.linkGeoJSON').on('focusout', function() {
+                            if($(this).val() != ""){
+                                Liferay.Service(
+                                    '/strasbourg.strasbourg/read-json-from-url', {
+                                        url: $('.urlGeoJSON').val()
+                                    },
+                                    function(data) {
+                                        var options = "<option value='' ></option>";
+                                        option += getOptions('', data);
+                                        $('.visualLink').html(options);
+                                        $('.nameLink').html(options);
+                                        $('.addressLink').html(options);
+                                        $('.likeLikedLink').html(options);
+                                        $('.likeHrefLink').html(options);
+                                        $('.openedLink').html(options);
+                                        $('.schedulesLink').html(options);
+                                        $('.amountTitleLink').html(options);
+                                        $('.amountFrequentationLink').html(options);
+                                        $('.amountLabelLink').html(options);
+                                        $('.amountColorLink').html(options);
+                                        $('.urlLink').html(options);
+                                        $('.typeLink').html(options);
+                                        $('.contenuLink').html(options);
+                                        $('.idLink').html(options);
+                                        $('.sigIdLink').html(options);
+                                        $('.listeTypesLink').html(options);
+                                        $('.iconLink').html(options);
+                                        $('.link').show();
+                                    }
+                                );
+                            }else{
+                                var options = "<option value='' ></option>";
+                                $('.visualLink').html(options);
+                                $('.nameLink').html(options);
+                                $('.addressLink').html(options);
+                                $('.likeLikedLink').html(options);
+                                $('.likeHrefLink').html(options);
+                                $('.openedLink').html(options);
+                                $('.schedulesLink').html(options);
+                                $('.amountTitleLink').html(options);
+                                $('.amountFrequentationLink').html(options);
+                                $('.amountLabelLink').html(options);
+                                $('.amountColorLink').html(options);
+                                $('.urlLink').html(options);
+                                $('.typeLink').html(options);
+                                $('.contenuLink').html(options);
+                                $('.idLink').html(options);
+                                $('.sigIdLink').html(options);
+                                $('.listeTypesLink').html(options);
+                                $('.iconLink').html(options);
+                                $('.link').hide();
+                            }
                         })
                     </script>
                 </aui:fieldset>

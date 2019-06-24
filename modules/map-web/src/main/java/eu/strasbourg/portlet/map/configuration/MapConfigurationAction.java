@@ -121,6 +121,7 @@ public class MapConfigurationAction extends DefaultConfigurationAction {
 				// Pas utilisé en mode widget
 				setPreference(request, "typesContenu", "");
 				setPreference(request, "eventExplanationXML", "");
+				setPreference(request,"urlGeoJSON","");
 				setPreference(request, "showConfig", "");
 				setPreference(request, "showList", "");
 				setPreference(request, "showTraffic", "");
@@ -148,16 +149,75 @@ public class MapConfigurationAction extends DefaultConfigurationAction {
 				}
 				setPreference(request, "typesContenu", typesContenuString);
 				json.put("typesContenu", jsonArrayTypeContenu);
-				
+
 				// texte explicatif sur les évènements
 				Map<Locale, String> eventExplanationMap = LocalizationUtil
-					.getLocalizationMap(request, "eventExplanationMap");
+						.getLocalizationMap(request, "eventExplanationMap");
 				LocalizedValuesMap mapEventExplanation = new LocalizedValuesMap();
 				for (Map.Entry<Locale, String> e : eventExplanationMap.entrySet()) {
 					mapEventExplanation.put(e.getKey(), e.getValue());
 				}
 				String eventExplanationXML = LocalizationUtil.getXml(mapEventExplanation, "eventExplanation");
 				setPreference(request, "eventExplanationXML", eventExplanationXML);
+
+				// URL du flux GeoJSON
+				String urlGeoJSON = ParamUtil.getString(request, "urlGeoJSON");
+				setPreference(request, "urlGeoJSON", urlGeoJSON);
+
+				// Liaison entre les attributs json dont on a besoin et les attribut json du flux geoJSON
+				String visualLink = ParamUtil.getString(request, "visualLink");
+				setPreference(request, "visualLink", visualLink);
+
+				String nameLink = ParamUtil.getString(request, "nameLink");
+				setPreference(request, "nameLink", nameLink);
+
+				String addressLink = ParamUtil.getString(request, "addressLink");
+				setPreference(request, "addressLink", addressLink);
+
+				String likeLikedLink = ParamUtil.getString(request, "likeLikedLink");
+				setPreference(request, "likeLikedLink", likeLikedLink);
+
+				String likeHrefLink = ParamUtil.getString(request, "likeHrefLink");
+				setPreference(request, "likeHrefLink", likeHrefLink);
+
+				String openedLink = ParamUtil.getString(request, "openedLink");
+				setPreference(request, "openedLink", openedLink);
+
+				String schedulesLink = ParamUtil.getString(request, "schedulesLink");
+				setPreference(request, "schedulesLink", schedulesLink);
+
+				String amountTitleLink = ParamUtil.getString(request, "amountTitleLink");
+				setPreference(request, "amountTitleLink", amountTitleLink);
+
+				String amountFrequentationLink = ParamUtil.getString(request, "amountFrequentationLink");
+				setPreference(request, "amountFrequentationLink", amountFrequentationLink);
+
+				String amountLabelLink = ParamUtil.getString(request, "amountLabelLink");
+				setPreference(request, "amountLabelLink", amountLabelLink);
+
+				String amountColorLink = ParamUtil.getString(request, "amountColorLink");
+				setPreference(request, "amountColorLink", amountColorLink);
+
+				String urlLink = ParamUtil.getString(request, "urlLink");
+				setPreference(request, "urlLink", urlLink);
+
+				String typeLink = ParamUtil.getString(request, "typeLink");
+				setPreference(request, "typeLink", typeLink);
+
+				String contenuLink = ParamUtil.getString(request, "contenuLink");
+				setPreference(request, "contenuLink", contenuLink);
+
+				String idLink = ParamUtil.getString(request, "idLink");
+				setPreference(request, "idLink", idLink);
+
+				String sigIdLink = ParamUtil.getString(request, "sigIdLink");
+				setPreference(request, "sigIdLink", sigIdLink);
+
+				String listeTypesLink = ParamUtil.getString(request, "listeTypesLink");
+				setPreference(request, "listeTypesLink", listeTypesLink);
+
+				String iconLink = ParamUtil.getString(request, "iconLink");
+				setPreference(request, "iconLink", iconLink);
 				
 				// Choix afficher la zone de config
 				String showConfig = ParamUtil.getString(request, "showConfig");
@@ -383,6 +443,26 @@ public class MapConfigurationAction extends DefaultConfigurationAction {
 
 			request.setAttribute("groupId", "-1");
 
+			// Selection des liaisons entre le flux et ce dont on a besoin
+			request.setAttribute("visualLink", configuration.visualLink());
+			request.setAttribute("nameLink", configuration.nameLink());
+			request.setAttribute("addressLink", configuration.addressLink());
+			request.setAttribute("likeLikedLink", configuration.likeLikedLink());
+			request.setAttribute("likeHrefLink", configuration.likeHrefLink());
+			request.setAttribute("openedLink", configuration.openedLink());
+			request.setAttribute("schedulesLink", configuration.schedulesLink());
+			request.setAttribute("amountTitleLink", configuration.amountTitleLink());
+			request.setAttribute("amountFrequentationLink", configuration.amountFrequentationLink());
+			request.setAttribute("amountLabelLink", configuration.amountLabelLink());
+			request.setAttribute("amountColorLink", configuration.amountColorLink());
+			request.setAttribute("urlLink", configuration.urlLink());
+			request.setAttribute("typeLink", configuration.typeLink());
+			request.setAttribute("contenuLink", configuration.contenuLink());
+			request.setAttribute("idLink", configuration.idLink());
+			request.setAttribute("sigIdLink", configuration.sigIdLink());
+			request.setAttribute("listeTypesLink", configuration.listeTypesLink());
+			request.setAttribute("iconLink", configuration.iconLink());
+
 			// Choix "nouvel onglet, onglet courant"
 			request.setAttribute("openInNewTab", configuration.openInNewTab());
 
@@ -408,6 +488,9 @@ public class MapConfigurationAction extends DefaultConfigurationAction {
 
 			// texte explicatif sur les évènements
 			request.setAttribute("eventExplanation", configuration.eventExplanationXML());
+
+			// URL du flux geoJSON
+			request.setAttribute("urlGeoJSON", configuration.urlGeoJSON());
 
 			// Cooredonnées d'une zone
 			request.setAttribute("coordinateZone", JSONFactoryUtil.createJSONObject());

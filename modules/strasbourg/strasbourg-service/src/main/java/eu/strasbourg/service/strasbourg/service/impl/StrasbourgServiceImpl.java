@@ -39,6 +39,7 @@ import eu.strasbourg.service.poi.PoiService;
 import eu.strasbourg.service.poi.PoiServiceTracker;
 import eu.strasbourg.service.strasbourg.service.base.StrasbourgServiceBaseImpl;
 import eu.strasbourg.utils.FileEntryHelper;
+import eu.strasbourg.utils.JSONHelper;
 import eu.strasbourg.utils.PortletHelper;
 
 /**
@@ -263,5 +264,15 @@ public class StrasbourgServiceImpl extends StrasbourgServiceBaseImpl {
 	@Override
 	public void foldPortlet(String portletId) {
 		PortletHelper.foldPortlet(portletId);
+	}
+
+	@Override
+	public JSONObject readJsonFromURL(String url) {
+		try {
+			return JSONHelper.readJsonFromURL(url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

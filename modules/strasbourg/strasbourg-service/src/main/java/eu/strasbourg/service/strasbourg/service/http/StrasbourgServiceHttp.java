@@ -618,6 +618,32 @@ public class StrasbourgServiceHttp {
 		}
 	}
 
+	public static com.liferay.portal.kernel.json.JSONObject readJsonFromURL(
+		HttpPrincipal httpPrincipal, java.lang.String url) {
+		try {
+			MethodKey methodKey = new MethodKey(StrasbourgServiceUtil.class,
+					"readJsonFromURL", _readJsonFromURLParameterTypes23);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, url);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (com.liferay.portal.kernel.json.JSONObject)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(StrasbourgServiceHttp.class);
 	private static final Class<?>[] _getCopyrightParameterTypes2 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class
@@ -680,6 +706,9 @@ public class StrasbourgServiceHttp {
 			java.lang.String.class
 		};
 	private static final Class<?>[] _foldPortletParameterTypes22 = new Class[] {
+			java.lang.String.class
+		};
+	private static final Class<?>[] _readJsonFromURLParameterTypes23 = new Class[] {
 			java.lang.String.class
 		};
 }

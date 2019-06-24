@@ -22,10 +22,10 @@ public interface MapConfiguration {
 
 	@Meta.AD(name = "districtMod", required = false)
 	public boolean districtMod();
-	
+
 	@Meta.AD(name = "groupId", required = false)
 	public long groupId();
-	
+
 	@Meta.AD(name = "openInNewTab", required = false)
 	public boolean openInNewTab();
 
@@ -46,6 +46,63 @@ public interface MapConfiguration {
 
 	@Meta.AD(name = "eventExplanationXML", deflt = "", required = false)
 	public String eventExplanationXML();
+
+	@Meta.AD(name = "urlGeoJSON", deflt = "", required = false)
+	public String urlGeoJSON();
+
+	@Meta.AD(name = "visualLink", required = false)
+	public long visualLink();
+
+	@Meta.AD(name = "nameLink", required = false)
+	public long nameLink();
+
+	@Meta.AD(name = "addressLink", required = false)
+	public long addressLink();
+
+	@Meta.AD(name = "likeLikedLink", required = false)
+	public long likeLikedLink();
+
+	@Meta.AD(name = "likeHrefLink", required = false)
+	public long likeHrefLink();
+
+	@Meta.AD(name = "openedLink", required = false)
+	public long openedLink();
+
+	@Meta.AD(name = "schedulesLink", required = false)
+	public long schedulesLink();
+
+	@Meta.AD(name = "amountTitleLink", required = false)
+	public long amountTitleLink();
+
+	@Meta.AD(name = "amountFrequentationLink", required = false)
+	public long amountFrequentationLink();
+
+	@Meta.AD(name = "amountLabelLink", required = false)
+	public long amountLabelLink();
+
+	@Meta.AD(name = "amountColorLink", required = false)
+	public long amountColorLink();
+
+	@Meta.AD(name = "urlLink", required = false)
+	public long urlLink();
+
+	@Meta.AD(name = "typeLink", required = false)
+	public long typeLink();
+
+	@Meta.AD(name = "contenuLink", required = false)
+	public long contenuLink();
+
+	@Meta.AD(name = "idLink", required = false)
+	public long idLink();
+
+	@Meta.AD(name = "sigIdLink", required = false)
+	public long sigIdLink();
+
+	@Meta.AD(name = "listeTypesLink", required = false)
+	public long listeTypesLink();
+
+	@Meta.AD(name = "iconLink", required = false)
+	public long iconLink();
 
 	@Meta.AD(name = "showConfig", required = false)
 	public boolean showConfig();

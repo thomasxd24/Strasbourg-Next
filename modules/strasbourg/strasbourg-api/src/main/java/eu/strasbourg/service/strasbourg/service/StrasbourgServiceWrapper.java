@@ -109,6 +109,12 @@ public class StrasbourgServiceWrapper implements StrasbourgService,
 	}
 
 	@Override
+	public com.liferay.portal.kernel.json.JSONObject readJsonFromURL(
+		java.lang.String url) {
+		return _strasbourgService.readJsonFromURL(url);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.json.JSONObject searchStreets(
 		java.lang.String query) {
 		return _strasbourgService.searchStreets(query);

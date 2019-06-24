@@ -371,5 +371,19 @@ public class StrasbourgServiceSoap {
 		}
 	}
 
+	public static java.lang.String readJsonFromURL(java.lang.String url)
+		throws RemoteException {
+		try {
+			com.liferay.portal.kernel.json.JSONObject returnValue = StrasbourgServiceUtil.readJsonFromURL(url);
+
+			return returnValue.toString();
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(StrasbourgServiceSoap.class);
 }

@@ -97,6 +97,8 @@ public interface StrasbourgService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public JSONObject getTraffic();
 
+	public JSONObject readJsonFromURL(java.lang.String url);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public JSONObject searchStreets(java.lang.String query);
 

@@ -101,8 +101,7 @@ public class SearchHelper {
 			BooleanQuery query = new BooleanQueryImpl();
 
 			// ClassName
-			BooleanQuery classNameQuery = new BooleanQueryImpl();
-			classNameQuery.addExactTerm(Field.ENTRY_CLASS_NAME, className);
+			MatchQuery  classNameQuery = new MatchQuery(Field.ENTRY_CLASS_NAME, className);
 			query.add(classNameQuery, BooleanClauseOccur.MUST);
 
 			// Group
@@ -578,12 +577,7 @@ public class SearchHelper {
 				if (Validator.isNotNull(className)) {
 					// Cas général
 					if (!className.contains("JournalArticle")) {
-						BooleanQuery classNameQuery = new BooleanQueryImpl();
-						// classNameQuery.addRequiredTerm(Field.ENTRY_CLASS_NAME,
-						// className);
-						// classNameQuery.addTerm(Field.ENTRY_CLASS_NAME,
-						// className, false, BooleanClauseOccur.MUST);
-						classNameQuery.addExactTerm(Field.ENTRY_CLASS_NAME, className);
+						MatchQuery  classNameQuery = new MatchQuery(Field.ENTRY_CLASS_NAME, className);
 						classNamesQuery.add(classNameQuery, BooleanClauseOccur.SHOULD);
 					}
 					// Cas où on a un journalArticle (on vérifie que c'est la

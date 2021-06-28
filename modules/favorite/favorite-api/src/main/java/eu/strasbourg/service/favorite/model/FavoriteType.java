@@ -4,46 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.liferay.document.library.kernel.model.DLFileEntry;
-import com.liferay.journal.model.JournalArticle;
-import com.liferay.portal.kernel.model.Layout;
-
-import eu.strasbourg.service.activity.model.Activity;
-import eu.strasbourg.service.activity.model.ActivityCourse;
-import eu.strasbourg.service.agenda.model.Event;
-import eu.strasbourg.service.agenda.model.Manifestation;
-import eu.strasbourg.service.edition.model.Edition;
-import eu.strasbourg.service.edition.model.EditionGallery;
-import eu.strasbourg.service.gtfs.model.Arret;
-import eu.strasbourg.service.place.model.Place;
-import eu.strasbourg.service.video.model.Video;
-
 public enum FavoriteType {
-	PLACE(1, "PLACE", Place.class,true, true),
-	EVENT(2, "EVENT", Event.class,true, true),
-	VIDEO(3, "VIDEO", Video.class,false, true),
-	EDITION(4, "EDITION", Edition.class,false, true),
-	IMAGE(5, "IMAGE", DLFileEntry.class,false, true),
-	NEWS(6, "NEWS", JournalArticle.class,false, true),
-	ARTICLE(7, "ARTICLE", JournalArticle.class,false, true),
-	PROCEDURE(8, "PROCEDURE", String.class,false, true),
-	PAGE(9, "PAGE", Layout.class,false, true),
-	ACTIVITY(10, "ACTIVITY", Activity.class,false, true),
-	COURSE(11, "COURSE", ActivityCourse.class,false, true),
-	MANIFESTATION(12,"MANIFESTATION", Manifestation.class,true, true),
-	GALLERY(13,"GALLERY", EditionGallery.class,false, true),
-	ARRET(14,"ARRET", Arret.class,true, true),
+	PLACE(1, "PLACE", "eu.strasbourg.service.place.model.Place",true, true),
+	EVENT(2, "EVENT", "eu.strasbourg.service.agenda.model.Event",true, true),
+	VIDEO(3, "VIDEO", "eu.strasbourg.service.video.model.Video",false, true),
+	EDITION(4, "EDITION", "eu.strasbourg.service.edition.model.Edition",false, true),
+	IMAGE(5, "IMAGE", "com.liferay.document.library.kernel.model.DLFileEntry",false, true),
+	NEWS(6, "NEWS", "com.liferay.journal.model.JournalArticle",false, true),
+	ARTICLE(7, "ARTICLE", "com.liferay.journal.model.JournalArticle",false, true),
+	PROCEDURE(8, "PROCEDURE", String.class.getName(),false, true),
+	PAGE(9, "PAGE", "com.liferay.portal.kernel.model.Layout",false, true),
+	ACTIVITY(10, "ACTIVITY", "eu.strasbourg.service.activity.model.Activity",false, true),
+	COURSE(11, "COURSE", "eu.strasbourg.service.activity.model.ActivityCourse",false, true),
+	MANIFESTATION(12,"MANIFESTATION", "eu.strasbourg.service.agenda.model.Manifestation",true, true),
+	GALLERY(13,"GALLERY", "eu.strasbourg.service.edition.model.EditionGallery",false, true),
+	ARRET(14,"ARRET", "eu.strasbourg.service.gtfs.model.Arret",true, true),
 	SEARCH(101,"SEARCH", null, true, false),
 	FILTER(102,"FILTER", null, true, false);
 
 
 	private long id;
 	private String name;
-	private Class<?> favoriteClass;
+	private String favoriteClass;
 	private boolean isLiferay;
 	private boolean isCSMap;
 
-	FavoriteType(int id, String name, Class<?> favoriteClass, boolean isCSMap, boolean isLiferay) {
+	FavoriteType(int id, String name, String favoriteClass, boolean isCSMap, boolean isLiferay) {
 		this.id = id;
 		this.name = name;
 		this.favoriteClass = favoriteClass;
@@ -68,11 +54,11 @@ public enum FavoriteType {
 		this.name = name;
 	}
 
-	public Class<?> getFavoriteClass() {
+	public String getFavoriteClass() {
 		return favoriteClass;
 	}
 
-	public void setFavoriteClass(Class<?> favoriteClass) {
+	public void setFavoriteClass(String favoriteClass) {
 		this.favoriteClass = favoriteClass;
 	}
 

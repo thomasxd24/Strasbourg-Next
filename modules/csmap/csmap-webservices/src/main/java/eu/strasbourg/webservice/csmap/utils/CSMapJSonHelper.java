@@ -17,7 +17,6 @@ import eu.strasbourg.service.agenda.service.EventLocalServiceUtil;
 import eu.strasbourg.service.favorite.model.Favorite;
 import eu.strasbourg.service.favorite.model.FavoriteType;
 import eu.strasbourg.service.gtfs.service.ArretLocalServiceUtil;
-import eu.strasbourg.service.place.service.PlaceLocalService;
 import eu.strasbourg.service.place.service.PlaceLocalServiceUtil;
 import eu.strasbourg.utils.*;
 import eu.strasbourg.webservice.csmap.constants.WSConstants;
@@ -25,9 +24,11 @@ import eu.strasbourg.webservice.csmap.service.WSPlace;
 
 import java.net.URISyntaxException;
 import java.text.DateFormat;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class CSMapJSonHelper {
     static public JSONObject placeCategoryCSMapJSON(AssetCategory category, String urlPicto, boolean maj) {

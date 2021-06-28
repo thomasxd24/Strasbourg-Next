@@ -12,4 +12,5 @@ dependencies {
 	compileOnly project (':modules:place:place-api')
 	compileOnly project (':modules:favorite:favorite-api')
 	compileOnly project (':modules:csmap:csmap-api')
+	compileOnly project(":modules:gtfs:gtfs-api")
 }

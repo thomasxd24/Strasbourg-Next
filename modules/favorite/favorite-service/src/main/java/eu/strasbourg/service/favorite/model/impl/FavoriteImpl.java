@@ -52,12 +52,16 @@ public class FavoriteImpl extends FavoriteBaseImpl {
 
 	@Override
 	public boolean hasAssetEntry() {
-		return !this.getFavoriteType().getFavoriteClass().equals(String.class);
+		try{
+			return !Class.forName(this.getFavoriteType().getFavoriteClass()).equals(String.class);
+		} catch (ClassNotFoundException e){
+			return false;
+		}
 	}
 
 	@Override
 	public AssetEntry getAssetEntry() {
-		return AssetEntryLocalServiceUtil.fetchEntry(this.getFavoriteType().getFavoriteClass().getName(),
+		return AssetEntryLocalServiceUtil.fetchEntry(this.getFavoriteType().getFavoriteClass(),
 				this.getEntityId());
 	}
 

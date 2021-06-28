@@ -114,7 +114,7 @@ public class FavoriteLocalServiceImpl extends FavoriteLocalServiceBaseImpl {
 	public Long getFavoriteTypeByClass(String favoriteClass) {
 		Long type = null;
 		List<FavoriteType> allFavoriteType = FavoriteType.getAll();
-		List<FavoriteType> favoritesType = allFavoriteType.stream().filter(f -> f.getFavoriteClass().getName().equals(favoriteClass)).collect(Collectors.toList());
+		List<FavoriteType> favoritesType = allFavoriteType.stream().filter(f -> f.getFavoriteClass().equals(favoriteClass)).collect(Collectors.toList());
 		if (!favoritesType.isEmpty()) {
 			FavoriteType favoriteType = favoritesType.get(0);
 			type = favoriteType.getId();

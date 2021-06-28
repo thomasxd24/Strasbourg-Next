@@ -69,6 +69,8 @@ import eu.strasbourg.service.activity.model.ActivityCoursePlace;
 import eu.strasbourg.service.activity.model.ActivityCourseSchedule;
 import eu.strasbourg.service.activity.model.PlaceAgenda;
 import eu.strasbourg.service.activity.service.base.ActivityLocalServiceBaseImpl;
+import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 
 /**
  * The implementation of the activity local service.
@@ -248,6 +250,12 @@ public class ActivityLocalServiceImpl extends ActivityLocalServiceBaseImpl {
 			List<ActivityCourse> activityCourses = this.activityCourseLocalService.getByActivity(activityId);
 			for (ActivityCourse activityCourse : activityCourses) {
 				this.activityCourseLocalService.removeActivityCourse(activityCourse.getActivityCourseId());
+			}
+		}
+		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==activityId).collect(Collectors.toList());
+		if(!favorites.isEmpty()) {
+			for(Favorite favorite : favorites){
+				FavoriteLocalServiceUtil.deleteFavorite(favorite);
 			}
 		}
 

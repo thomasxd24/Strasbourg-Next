@@ -43,8 +43,11 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
+import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 import eu.strasbourg.service.gtfs.model.Arret;
 import eu.strasbourg.service.gtfs.model.ImportHistoric;
 import eu.strasbourg.service.gtfs.service.DirectionLocalServiceUtil;
@@ -250,7 +253,13 @@ public class ArretLocalServiceImpl extends ArretLocalServiceBaseImpl {
 			// Delete the AssetEntry
 			AssetEntryLocalServiceUtil.deleteEntry(Arret.class.getName(), arretId);
 
-		}		
+		}
+		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==arretId).collect(Collectors.toList());
+		if(!favorites.isEmpty()) {
+			for(Favorite favorite : favorites){
+				FavoriteLocalServiceUtil.deleteFavorite(favorite);
+			}
+		}
 		
 		// Supprime l'entree
 		Arret arret = arretPersistence.remove(arretId);

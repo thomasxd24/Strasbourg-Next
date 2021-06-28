@@ -15,6 +15,7 @@ dependencies {
 	compile project(":modules:activity:activity-api")
 	compile project(":modules:video:video-api")
 	compile project(":modules:place:place-api")
+	compile project(":modules:favorite:favorite-api")
 	compile project (':modules:utils')
 }
 

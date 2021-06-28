@@ -17,6 +17,7 @@ package eu.strasbourg.service.activity.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 import com.liferay.asset.kernel.model.AssetEntry;
@@ -43,6 +44,8 @@ import aQute.bnd.annotation.ProviderType;
 import eu.strasbourg.service.activity.model.ActivityCourse;
 import eu.strasbourg.service.activity.model.ActivityCoursePlace;
 import eu.strasbourg.service.activity.service.base.ActivityCourseLocalServiceBaseImpl;
+import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 
 /**
  * The implementation of the activityCourse local service.
@@ -246,6 +249,12 @@ public class ActivityCourseLocalServiceImpl
 			for (ActivityCoursePlace activityCoursePlace : activityCoursePlaces) {
 				this.activityCoursePlaceLocalService.removeActivityCoursePlace(
 					activityCoursePlace.getActivityCoursePlaceId());
+			}
+		}
+		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==activityCourseId).collect(Collectors.toList());
+		if(!favorites.isEmpty()) {
+			for(Favorite favorite : favorites){
+				FavoriteLocalServiceUtil.deleteFavorite(favorite);
 			}
 		}
 

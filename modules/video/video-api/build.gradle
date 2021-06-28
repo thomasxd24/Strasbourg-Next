@@ -9,4 +9,5 @@ dependencies {
 	compileOnly group: "org.osgi", name: "org.osgi.core"
 
 	compile project(":modules:like:like-api")
+	compile project(":modules:favorite:favorite-api")
 }

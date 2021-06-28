@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 import com.liferay.asset.kernel.model.AssetEntry;
@@ -55,6 +56,8 @@ import eu.strasbourg.service.agenda.exception.NoSuchManifestationException;
 import eu.strasbourg.service.agenda.model.Event;
 import eu.strasbourg.service.agenda.model.Manifestation;
 import eu.strasbourg.service.agenda.service.base.ManifestationLocalServiceBaseImpl;
+import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 
 /**
  * The implementation of the event manifestation local service.
@@ -342,6 +345,12 @@ public class ManifestationLocalServiceImpl
 			AssetEntryLocalServiceUtil
 				.deleteEntry(Manifestation.class.getName(), manifestationId);
 
+		}
+		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==manifestationId).collect(Collectors.toList());
+		if(!favorites.isEmpty()) {
+			for(Favorite favorite : favorites){
+				FavoriteLocalServiceUtil.deleteFavorite(favorite);
+			}
 		}
 
 		// Supprime la galerie

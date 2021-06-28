@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetLink;
@@ -49,6 +50,8 @@ import aQute.bnd.annotation.ProviderType;
 import eu.strasbourg.service.edition.model.Edition;
 import eu.strasbourg.service.edition.model.EditionGallery;
 import eu.strasbourg.service.edition.service.base.EditionGalleryLocalServiceBaseImpl;
+import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 import eu.strasbourg.utils.AssetVocabularyHelper;
 
 /**
@@ -301,6 +304,12 @@ public class EditionGalleryLocalServiceImpl
 			AssetEntryLocalServiceUtil
 				.deleteEntry(EditionGallery.class.getName(), galleryId);
 
+		}
+		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==galleryId).collect(Collectors.toList());
+		if(!favorites.isEmpty()) {
+			for(Favorite favorite : favorites){
+				FavoriteLocalServiceUtil.deleteFavorite(favorite);
+			}
 		}
 
 		// Supprime la galerie

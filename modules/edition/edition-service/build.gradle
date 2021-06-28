@@ -15,6 +15,7 @@ dependencies {
 
 	compile project (':modules:utils')
 	compile project(":modules:edition:edition-api")
+	compile project(":modules:favorite:favorite-api")
 }
 
 buildService {

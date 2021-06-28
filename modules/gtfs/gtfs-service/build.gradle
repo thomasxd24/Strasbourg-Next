@@ -18,6 +18,7 @@ dependencies {
 	compileOnly group: 'javax.mail', name: 'mail', version: '1.4.7'
 
 	compile project (":modules:gtfs:gtfs-api")
+	compile project(":modules:favorite:favorite-api")
 	compile project (":modules:utils")
 }
 

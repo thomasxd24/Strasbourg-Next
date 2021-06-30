@@ -781,7 +781,8 @@ public class AgendaImporter {
 		}
 		if(jsonEvent.getString("description") != null){
 			for (char c : jsonEvent.getString("description").toCharArray()) {
-				if((int) c > 5000){
+				//Pour la valeur cf wikipedia table des caracteres Unicode (1F000-1FFFF)
+				if((int) c > 131071){
 					reportLine.error(LanguageUtil.format(bundle,
 							"error-forbidden-char","description"));
 					break;

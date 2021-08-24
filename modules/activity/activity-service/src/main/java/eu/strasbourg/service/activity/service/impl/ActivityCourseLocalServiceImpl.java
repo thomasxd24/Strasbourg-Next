@@ -45,6 +45,7 @@ import eu.strasbourg.service.activity.model.ActivityCourse;
 import eu.strasbourg.service.activity.model.ActivityCoursePlace;
 import eu.strasbourg.service.activity.service.base.ActivityCourseLocalServiceBaseImpl;
 import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.model.FavoriteType;
 import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 
 /**
@@ -251,12 +252,7 @@ public class ActivityCourseLocalServiceImpl
 					activityCoursePlace.getActivityCoursePlaceId());
 			}
 		}
-		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==activityCourseId).collect(Collectors.toList());
-		if(!favorites.isEmpty()) {
-			for(Favorite favorite : favorites){
-				FavoriteLocalServiceUtil.deleteFavorite(favorite);
-			}
-		}
+		FavoriteLocalServiceUtil.deleteFavoriteByEntityIdAndType(activityCourseId, FavoriteType.COURSE.getId());
 
 		// Supprime l'entité
 		ActivityCourse activityCourse = this.activityCoursePersistence

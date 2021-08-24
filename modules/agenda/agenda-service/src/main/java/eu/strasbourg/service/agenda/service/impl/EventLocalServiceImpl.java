@@ -64,6 +64,7 @@ import eu.strasbourg.service.agenda.utils.AgendaImporter;
 import eu.strasbourg.service.agenda.model.CacheJson;
 import eu.strasbourg.service.agenda.model.Historic;
 import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.model.FavoriteType;
 import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 import eu.strasbourg.utils.FileEntryHelper;
 import eu.strasbourg.utils.StrasbourgPropsUtil;
@@ -408,12 +409,7 @@ public class EventLocalServiceImpl extends EventLocalServiceBaseImpl {
 				EventParticipationLocalServiceUtil.deleteEventParticipation(ep);
 			}
 		}
-		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==eventId).collect(Collectors.toList());
-		if(!favorites.isEmpty()) {
-			for(Favorite favorite : favorites){
-				FavoriteLocalServiceUtil.deleteFavorite(favorite);
-			}
-		}
+		FavoriteLocalServiceUtil.deleteFavoriteByEntityIdAndType(eventId, FavoriteType.EVENT.getId());
 
 		// Delete the Event
 		Event event = eventPersistence.remove(eventId);

@@ -70,6 +70,7 @@ import eu.strasbourg.service.activity.model.ActivityCourseSchedule;
 import eu.strasbourg.service.activity.model.PlaceAgenda;
 import eu.strasbourg.service.activity.service.base.ActivityLocalServiceBaseImpl;
 import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.model.FavoriteType;
 import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 
 /**
@@ -252,12 +253,7 @@ public class ActivityLocalServiceImpl extends ActivityLocalServiceBaseImpl {
 				this.activityCourseLocalService.removeActivityCourse(activityCourse.getActivityCourseId());
 			}
 		}
-		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==activityId).collect(Collectors.toList());
-		if(!favorites.isEmpty()) {
-			for(Favorite favorite : favorites){
-				FavoriteLocalServiceUtil.deleteFavorite(favorite);
-			}
-		}
+		FavoriteLocalServiceUtil.deleteFavoriteByEntityIdAndType(activityId, FavoriteType.ACTIVITY.getId());
 
 		// Supprimé l'entité
 		Activity activity = this.activityPersistence.remove(activityId);

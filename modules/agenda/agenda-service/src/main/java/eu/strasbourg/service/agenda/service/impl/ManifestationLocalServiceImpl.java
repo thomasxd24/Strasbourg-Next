@@ -57,6 +57,7 @@ import eu.strasbourg.service.agenda.model.Event;
 import eu.strasbourg.service.agenda.model.Manifestation;
 import eu.strasbourg.service.agenda.service.base.ManifestationLocalServiceBaseImpl;
 import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.model.FavoriteType;
 import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 
 /**
@@ -346,12 +347,7 @@ public class ManifestationLocalServiceImpl
 				.deleteEntry(Manifestation.class.getName(), manifestationId);
 
 		}
-		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==manifestationId).collect(Collectors.toList());
-		if(!favorites.isEmpty()) {
-			for(Favorite favorite : favorites){
-				FavoriteLocalServiceUtil.deleteFavorite(favorite);
-			}
-		}
+		FavoriteLocalServiceUtil.deleteFavoriteByEntityIdAndType(manifestationId, FavoriteType.MANIFESTATION.getId());
 
 		// Supprime la galerie
 		Manifestation manifestation = manifestationPersistence

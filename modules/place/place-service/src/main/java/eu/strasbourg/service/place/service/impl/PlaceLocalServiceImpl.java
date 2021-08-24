@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import eu.strasbourg.service.favorite.model.Favorite;
+import eu.strasbourg.service.favorite.model.FavoriteType;
 import eu.strasbourg.service.favorite.service.FavoriteLocalServiceUtil;
 import eu.strasbourg.service.place.MairieStateSOAPClient;
 import eu.strasbourg.service.place.ParkingStateClient;
@@ -434,12 +435,7 @@ public class PlaceLocalServiceImpl extends PlaceLocalServiceBaseImpl {
 					placeId);
 
 		}
-		List<Favorite> favorites = FavoriteLocalServiceUtil.getFavorites(-1,-1).stream().filter(f -> f.getEntityId()==placeId).collect(Collectors.toList());
-		if(!favorites.isEmpty()) {
-			for(Favorite favorite : favorites){
-				FavoriteLocalServiceUtil.deleteFavorite(favorite);
-			}
-		}
+		FavoriteLocalServiceUtil.deleteFavoriteByEntityIdAndType(placeId, FavoriteType.PLACE.getId());
 
 		// Supprime le lieu
 		Place place = placePersistence.remove(placeId);

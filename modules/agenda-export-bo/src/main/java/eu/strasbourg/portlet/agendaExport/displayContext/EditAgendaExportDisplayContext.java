@@ -32,11 +32,18 @@ import eu.strasbourg.service.agenda.service.AgendaExportPeriodLocalServiceUtil;
 import eu.strasbourg.utils.AssetVocabularyAccessor;
 import eu.strasbourg.utils.AssetVocabularyHelper;
 import eu.strasbourg.utils.constants.StrasbourgPortletKeys;
-import org.apache.commons.lang3.ArrayUtils;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 public class EditAgendaExportDisplayContext {
 
@@ -92,18 +99,16 @@ public class EditAgendaExportDisplayContext {
         if(resourceURL.contains("mvcPath")) {
 
             String[] splitedResourceURL = resourceURL.split("&");
-            int indexToRemove = -1;
+            String[] resourceURLWithoutMVCPath = new String[splitedResourceURL.length - 1];
+            int nbParam = 0;
             for(int i = 0; i < splitedResourceURL.length; i++) {
-                if(splitedResourceURL[i].contains("mvcPath")) {
-                    indexToRemove = i;
+                if(!splitedResourceURL[i].contains("mvcPath")) {
+                    resourceURLWithoutMVCPath[nbParam] = splitedResourceURL[i];
+                    nbParam++;
                 }
             }
 
-            if(indexToRemove != -1) {
-                splitedResourceURL = ArrayUtils.remove(splitedResourceURL, indexToRemove);
-            }
-
-            resourceURL = String.join("&", splitedResourceURL);
+            resourceURL = String.join("&", resourceURLWithoutMVCPath);
         }
 
         return resourceURL;

@@ -71,7 +71,7 @@ public class DailymotionClient {
 				videos.add(video);
 			}
 		} catch (JSONException | IOException e) {
-			log.error(e);
+			log.error("Social Wall - Probleme l'id du compte dailymotion n'est pas bon");
 		}
 
 		MultiVMPoolUtil.getPortalCache("dailymotion_cache").remove(accountId);

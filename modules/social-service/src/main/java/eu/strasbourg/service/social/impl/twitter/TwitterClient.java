@@ -1,7 +1,10 @@
 package eu.strasbourg.service.social.impl.twitter;
 
 import com.liferay.portal.kernel.cache.MultiVMPoolUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
+import eu.strasbourg.service.social.impl.facebook.FacebookClient;
 import eu.strasbourg.service.social.twitter.Tweet;
 import eu.strasbourg.utils.StrasbourgPropsUtil;
 import twitter4j.*;
@@ -13,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TwitterClient {
+	private static Log log = LogFactoryUtil.getLog(TwitterClient.class);
 
 	private static String twitterConsumerKey;
 	private static String twitterConsumerSecret;
@@ -110,7 +114,7 @@ public class TwitterClient {
 			MultiVMPoolUtil.getPortalCache("twitter_cache").put(username + "_last_update", new Date().getTime());
 			return tweets;
 		} catch (TwitterException e) {
-			e.printStackTrace();
+			log.error("Social Wall - Probleme le compte twitter n'est pas bon");
 			// Si on a du cache, on le renvoie
 			if (timelineFromCache != null) {
 				return (List<Tweet>) timelineFromCache;

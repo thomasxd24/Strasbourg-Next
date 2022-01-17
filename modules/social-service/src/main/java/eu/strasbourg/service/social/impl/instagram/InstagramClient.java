@@ -95,7 +95,7 @@ public class InstagramClient {
 				posts.add(post);
 			}
 		} catch (JSONException | IOException e) {
-			log.error(e);
+			log.error("Social Wall - Probleme le token instagram n'est pas bon");
 		}
 
 		MultiVMPoolUtil.getPortalCache("instagram_cache").remove(token);

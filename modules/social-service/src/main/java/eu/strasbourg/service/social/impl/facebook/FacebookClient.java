@@ -73,7 +73,7 @@ public class FacebookClient {
 				posts.add(post);
 			}
 		} catch (JSONException | IOException e) {
-			log.error(e);
+			log.error("Social Wall - Probleme le token facebook n'est pas bon");
 		}
 
 		MultiVMPoolUtil.getPortalCache("facebook_cache").remove(accessToken);

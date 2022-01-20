@@ -21,6 +21,7 @@ import eu.strasbourg.utils.display.context.ViewListBaseDisplayContext;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ViewNotificationsDisplayContext
 	extends ViewListBaseDisplayContext<ServiceNotif> {
@@ -52,6 +53,11 @@ public class ViewNotificationsDisplayContext
 					this.notifications = NotificationLocalServiceUtil.getByServiceIds(getServicesId());
 				}
 			}
+
+			this.notifications = this.notifications.stream()
+					.sorted((n1, n2) -> n2.getBroadcastDate().compareTo(n1.getBroadcastDate()))
+					.sorted((n1, n2) -> n2.getStartDate().compareTo(n1.getStartDate()))
+					.collect(Collectors.toList());
 
 			countResults = ServiceNotifLocalServiceUtil.getServiceNotifs(-1, -1).size();
 		}

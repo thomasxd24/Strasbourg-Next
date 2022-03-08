@@ -98,7 +98,8 @@ public class OfficialModelImpl
 		{"thematicDelegation", Types.CLOB}, {"missions", Types.CLOB},
 		{"wasMinister", Types.BOOLEAN}, {"contact", Types.CLOB},
 		{"orderDeputyMayor", Types.INTEGER},
-		{"orderVicePresident", Types.INTEGER}, {"imageId", Types.BIGINT}
+		{"orderVicePresident", Types.INTEGER},
+		{"additionnalsInformations", Types.CLOB}, {"imageId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -127,11 +128,12 @@ public class OfficialModelImpl
 		TABLE_COLUMNS_MAP.put("contact", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("orderDeputyMayor", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("orderVicePresident", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("additionnalsInformations", Types.CLOB);
 		TABLE_COLUMNS_MAP.put("imageId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table official_Official (uuid_ VARCHAR(75) null,officialId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,gender INTEGER,lastName VARCHAR(75) null,firstName VARCHAR(75) null,thematicDelegation TEXT null,missions TEXT null,wasMinister BOOLEAN,contact TEXT null,orderDeputyMayor INTEGER,orderVicePresident INTEGER,imageId LONG)";
+		"create table official_Official (uuid_ VARCHAR(75) null,officialId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,lastPublishDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,gender INTEGER,lastName VARCHAR(75) null,firstName VARCHAR(75) null,thematicDelegation TEXT null,missions TEXT null,wasMinister BOOLEAN,contact TEXT null,orderDeputyMayor INTEGER,orderVicePresident INTEGER,additionnalsInformations TEXT null,imageId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table official_Official";
 
@@ -205,6 +207,8 @@ public class OfficialModelImpl
 		model.setContact(soapModel.getContact());
 		model.setOrderDeputyMayor(soapModel.getOrderDeputyMayor());
 		model.setOrderVicePresident(soapModel.getOrderVicePresident());
+		model.setAdditionnalsInformations(
+			soapModel.getAdditionnalsInformations());
 		model.setImageId(soapModel.getImageId());
 
 		return model;
@@ -799,6 +803,29 @@ public class OfficialModelImpl
 					Official official, Object orderVicePresident) {
 
 					official.setOrderVicePresident((Integer)orderVicePresident);
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"additionnalsInformations",
+			new Function<Official, Object>() {
+
+				@Override
+				public Object apply(Official official) {
+					return official.getAdditionnalsInformations();
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"additionnalsInformations",
+			new BiConsumer<Official, Object>() {
+
+				@Override
+				public void accept(
+					Official official, Object additionnalsInformations) {
+
+					official.setAdditionnalsInformations(
+						(String)additionnalsInformations);
 				}
 
 			});
@@ -1476,6 +1503,130 @@ public class OfficialModelImpl
 
 	@JSON
 	@Override
+	public String getAdditionnalsInformations() {
+		if (_additionnalsInformations == null) {
+			return "";
+		}
+		else {
+			return _additionnalsInformations;
+		}
+	}
+
+	@Override
+	public String getAdditionnalsInformations(Locale locale) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getAdditionnalsInformations(languageId);
+	}
+
+	@Override
+	public String getAdditionnalsInformations(
+		Locale locale, boolean useDefault) {
+
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getAdditionnalsInformations(languageId, useDefault);
+	}
+
+	@Override
+	public String getAdditionnalsInformations(String languageId) {
+		return LocalizationUtil.getLocalization(
+			getAdditionnalsInformations(), languageId);
+	}
+
+	@Override
+	public String getAdditionnalsInformations(
+		String languageId, boolean useDefault) {
+
+		return LocalizationUtil.getLocalization(
+			getAdditionnalsInformations(), languageId, useDefault);
+	}
+
+	@Override
+	public String getAdditionnalsInformationsCurrentLanguageId() {
+		return _additionnalsInformationsCurrentLanguageId;
+	}
+
+	@JSON
+	@Override
+	public String getAdditionnalsInformationsCurrentValue() {
+		Locale locale = getLocale(_additionnalsInformationsCurrentLanguageId);
+
+		return getAdditionnalsInformations(locale);
+	}
+
+	@Override
+	public Map<Locale, String> getAdditionnalsInformationsMap() {
+		return LocalizationUtil.getLocalizationMap(
+			getAdditionnalsInformations());
+	}
+
+	@Override
+	public void setAdditionnalsInformations(String additionnalsInformations) {
+		_additionnalsInformations = additionnalsInformations;
+	}
+
+	@Override
+	public void setAdditionnalsInformations(
+		String additionnalsInformations, Locale locale) {
+
+		setAdditionnalsInformations(
+			additionnalsInformations, locale, LocaleUtil.getSiteDefault());
+	}
+
+	@Override
+	public void setAdditionnalsInformations(
+		String additionnalsInformations, Locale locale, Locale defaultLocale) {
+
+		String languageId = LocaleUtil.toLanguageId(locale);
+		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
+
+		if (Validator.isNotNull(additionnalsInformations)) {
+			setAdditionnalsInformations(
+				LocalizationUtil.updateLocalization(
+					getAdditionnalsInformations(), "AdditionnalsInformations",
+					additionnalsInformations, languageId, defaultLanguageId));
+		}
+		else {
+			setAdditionnalsInformations(
+				LocalizationUtil.removeLocalization(
+					getAdditionnalsInformations(), "AdditionnalsInformations",
+					languageId));
+		}
+	}
+
+	@Override
+	public void setAdditionnalsInformationsCurrentLanguageId(
+		String languageId) {
+
+		_additionnalsInformationsCurrentLanguageId = languageId;
+	}
+
+	@Override
+	public void setAdditionnalsInformationsMap(
+		Map<Locale, String> additionnalsInformationsMap) {
+
+		setAdditionnalsInformationsMap(
+			additionnalsInformationsMap, LocaleUtil.getSiteDefault());
+	}
+
+	@Override
+	public void setAdditionnalsInformationsMap(
+		Map<Locale, String> additionnalsInformationsMap, Locale defaultLocale) {
+
+		if (additionnalsInformationsMap == null) {
+			return;
+		}
+
+		setAdditionnalsInformations(
+			LocalizationUtil.updateLocalization(
+				additionnalsInformationsMap, getAdditionnalsInformations(),
+				"AdditionnalsInformations",
+				LocaleUtil.toLanguageId(defaultLocale)));
+	}
+
+	@JSON
+	@Override
 	public Long getImageId() {
 		return _imageId;
 	}
@@ -1627,6 +1778,20 @@ public class OfficialModelImpl
 			}
 		}
 
+		Map<Locale, String> additionnalsInformationsMap =
+			getAdditionnalsInformationsMap();
+
+		for (Map.Entry<Locale, String> entry :
+				additionnalsInformationsMap.entrySet()) {
+
+			Locale locale = entry.getKey();
+			String value = entry.getValue();
+
+			if (Validator.isNotNull(value)) {
+				availableLanguageIds.add(LocaleUtil.toLanguageId(locale));
+			}
+		}
+
 		return availableLanguageIds.toArray(
 			new String[availableLanguageIds.size()]);
 	}
@@ -1698,6 +1863,20 @@ public class OfficialModelImpl
 		else {
 			setContact(getContact(defaultLocale), defaultLocale, defaultLocale);
 		}
+
+		String additionnalsInformations = getAdditionnalsInformations(
+			defaultLocale);
+
+		if (Validator.isNull(additionnalsInformations)) {
+			setAdditionnalsInformations(
+				getAdditionnalsInformations(modelDefaultLanguageId),
+				defaultLocale);
+		}
+		else {
+			setAdditionnalsInformations(
+				getAdditionnalsInformations(defaultLocale), defaultLocale,
+				defaultLocale);
+		}
 	}
 
 	@Override
@@ -1736,6 +1915,7 @@ public class OfficialModelImpl
 		officialImpl.setContact(getContact());
 		officialImpl.setOrderDeputyMayor(getOrderDeputyMayor());
 		officialImpl.setOrderVicePresident(getOrderVicePresident());
+		officialImpl.setAdditionnalsInformations(getAdditionnalsInformations());
 		officialImpl.setImageId(getImageId());
 
 		officialImpl.resetOriginalValues();
@@ -1941,6 +2121,18 @@ public class OfficialModelImpl
 
 		officialCacheModel.orderVicePresident = getOrderVicePresident();
 
+		officialCacheModel.additionnalsInformations =
+			getAdditionnalsInformations();
+
+		String additionnalsInformations =
+			officialCacheModel.additionnalsInformations;
+
+		if ((additionnalsInformations != null) &&
+			(additionnalsInformations.length() == 0)) {
+
+			officialCacheModel.additionnalsInformations = null;
+		}
+
 		officialCacheModel.imageId = getImageId();
 
 		return officialCacheModel;
@@ -2043,6 +2235,8 @@ public class OfficialModelImpl
 	private String _contactCurrentLanguageId;
 	private int _orderDeputyMayor;
 	private int _orderVicePresident;
+	private String _additionnalsInformations;
+	private String _additionnalsInformationsCurrentLanguageId;
 	private Long _imageId;
 	private long _columnBitmask;
 	private Official _escapedModel;

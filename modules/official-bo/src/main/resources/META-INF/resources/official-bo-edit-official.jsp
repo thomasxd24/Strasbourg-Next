@@ -188,6 +188,8 @@
 						value="${not empty dc.official ? dc.official.wasMinister : false}" helpMessage="was-minister-help" />
 				</div>
 
+				<aui:input name="additionnalsInformations" />
+
 			</aui:fieldset>
 
 			<aui:fieldset collapsed="true" collapsible="true"

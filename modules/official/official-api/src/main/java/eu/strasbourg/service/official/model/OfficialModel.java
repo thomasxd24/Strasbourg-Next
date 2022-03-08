@@ -707,6 +707,111 @@ public interface OfficialModel
 	public void setOrderVicePresident(int orderVicePresident);
 
 	/**
+	 * Returns the additionnals informations of this official.
+	 *
+	 * @return the additionnals informations of this official
+	 */
+	public String getAdditionnalsInformations();
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized additionnals informations of this official
+	 */
+	@AutoEscape
+	public String getAdditionnalsInformations(Locale locale);
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized additionnals informations of this official. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
+	@AutoEscape
+	public String getAdditionnalsInformations(
+		Locale locale, boolean useDefault);
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized additionnals informations of this official
+	 */
+	@AutoEscape
+	public String getAdditionnalsInformations(String languageId);
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized additionnals informations of this official
+	 */
+	@AutoEscape
+	public String getAdditionnalsInformations(
+		String languageId, boolean useDefault);
+
+	@AutoEscape
+	public String getAdditionnalsInformationsCurrentLanguageId();
+
+	@AutoEscape
+	public String getAdditionnalsInformationsCurrentValue();
+
+	/**
+	 * Returns a map of the locales and localized additionnals informationses of this official.
+	 *
+	 * @return the locales and localized additionnals informationses of this official
+	 */
+	public Map<Locale, String> getAdditionnalsInformationsMap();
+
+	/**
+	 * Sets the additionnals informations of this official.
+	 *
+	 * @param additionnalsInformations the additionnals informations of this official
+	 */
+	public void setAdditionnalsInformations(String additionnalsInformations);
+
+	/**
+	 * Sets the localized additionnals informations of this official in the language.
+	 *
+	 * @param additionnalsInformations the localized additionnals informations of this official
+	 * @param locale the locale of the language
+	 */
+	public void setAdditionnalsInformations(
+		String additionnalsInformations, Locale locale);
+
+	/**
+	 * Sets the localized additionnals informations of this official in the language, and sets the default locale.
+	 *
+	 * @param additionnalsInformations the localized additionnals informations of this official
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
+	public void setAdditionnalsInformations(
+		String additionnalsInformations, Locale locale, Locale defaultLocale);
+
+	public void setAdditionnalsInformationsCurrentLanguageId(String languageId);
+
+	/**
+	 * Sets the localized additionnals informationses of this official from the map of locales and localized additionnals informationses.
+	 *
+	 * @param additionnalsInformationsMap the locales and localized additionnals informationses of this official
+	 */
+	public void setAdditionnalsInformationsMap(
+		Map<Locale, String> additionnalsInformationsMap);
+
+	/**
+	 * Sets the localized additionnals informationses of this official from the map of locales and localized additionnals informationses, and sets the default locale.
+	 *
+	 * @param additionnalsInformationsMap the locales and localized additionnals informationses of this official
+	 * @param defaultLocale the default locale
+	 */
+	public void setAdditionnalsInformationsMap(
+		Map<Locale, String> additionnalsInformationsMap, Locale defaultLocale);
+
+	/**
 	 * Returns the image ID of this official.
 	 *
 	 * @return the image ID of this official

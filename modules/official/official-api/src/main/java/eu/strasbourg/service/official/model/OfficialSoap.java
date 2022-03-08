@@ -56,6 +56,8 @@ public class OfficialSoap implements Serializable {
 		soapModel.setContact(model.getContact());
 		soapModel.setOrderDeputyMayor(model.getOrderDeputyMayor());
 		soapModel.setOrderVicePresident(model.getOrderVicePresident());
+		soapModel.setAdditionnalsInformations(
+			model.getAdditionnalsInformations());
 		soapModel.setImageId(model.getImageId());
 
 		return soapModel;
@@ -290,6 +292,14 @@ public class OfficialSoap implements Serializable {
 		_orderVicePresident = orderVicePresident;
 	}
 
+	public String getAdditionnalsInformations() {
+		return _additionnalsInformations;
+	}
+
+	public void setAdditionnalsInformations(String additionnalsInformations) {
+		_additionnalsInformations = additionnalsInformations;
+	}
+
 	public Long getImageId() {
 		return _imageId;
 	}
@@ -320,6 +330,7 @@ public class OfficialSoap implements Serializable {
 	private String _contact;
 	private int _orderDeputyMayor;
 	private int _orderVicePresident;
+	private String _additionnalsInformations;
 	private Long _imageId;
 
 }

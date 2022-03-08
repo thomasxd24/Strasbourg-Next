@@ -119,6 +119,10 @@ public class SaveOfficialActionCommand implements MVCActionCommand {
 			boolean wasMinister = ParamUtil.getBoolean(request, "wasMinister");
 			official.setWasMinister(wasMinister);
 
+			Map<Locale, String> additionnalsInformations = LocalizationUtil
+					.getLocalizationMap(request, "additionnalsInformations");
+			official.setAdditionnalsInformationsMap(additionnalsInformations);
+
 			Map<Locale, String> contact = LocalizationUtil
 					.getLocalizationMap(request, "contact");
 			official.setContactMap(contact);

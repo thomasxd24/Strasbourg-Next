@@ -80,6 +80,8 @@ public class OfficialWrapper implements Official, ModelWrapper<Official> {
 		attributes.put("contact", getContact());
 		attributes.put("orderDeputyMayor", getOrderDeputyMayor());
 		attributes.put("orderVicePresident", getOrderVicePresident());
+		attributes.put(
+			"additionnalsInformations", getAdditionnalsInformations());
 		attributes.put("imageId", getImageId());
 
 		return attributes;
@@ -221,6 +223,13 @@ public class OfficialWrapper implements Official, ModelWrapper<Official> {
 			setOrderVicePresident(orderVicePresident);
 		}
 
+		String additionnalsInformations = (String)attributes.get(
+			"additionnalsInformations");
+
+		if (additionnalsInformations != null) {
+			setAdditionnalsInformations(additionnalsInformations);
+		}
+
 		Long imageId = (Long)attributes.get("imageId");
 
 		if (imageId != null) {
@@ -238,6 +247,86 @@ public class OfficialWrapper implements Official, ModelWrapper<Official> {
 		eu.strasbourg.service.official.model.Official official) {
 
 		return _official.compareTo(official);
+	}
+
+	/**
+	 * Returns the additionnals informations of this official.
+	 *
+	 * @return the additionnals informations of this official
+	 */
+	@Override
+	public String getAdditionnalsInformations() {
+		return _official.getAdditionnalsInformations();
+	}
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the locale of the language
+	 * @return the localized additionnals informations of this official
+	 */
+	@Override
+	public String getAdditionnalsInformations(java.util.Locale locale) {
+		return _official.getAdditionnalsInformations(locale);
+	}
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param locale the local of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized additionnals informations of this official. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
+	 */
+	@Override
+	public String getAdditionnalsInformations(
+		java.util.Locale locale, boolean useDefault) {
+
+		return _official.getAdditionnalsInformations(locale, useDefault);
+	}
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language. Uses the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @return the localized additionnals informations of this official
+	 */
+	@Override
+	public String getAdditionnalsInformations(String languageId) {
+		return _official.getAdditionnalsInformations(languageId);
+	}
+
+	/**
+	 * Returns the localized additionnals informations of this official in the language, optionally using the default language if no localization exists for the requested language.
+	 *
+	 * @param languageId the ID of the language
+	 * @param useDefault whether to use the default language if no localization exists for the requested language
+	 * @return the localized additionnals informations of this official
+	 */
+	@Override
+	public String getAdditionnalsInformations(
+		String languageId, boolean useDefault) {
+
+		return _official.getAdditionnalsInformations(languageId, useDefault);
+	}
+
+	@Override
+	public String getAdditionnalsInformationsCurrentLanguageId() {
+		return _official.getAdditionnalsInformationsCurrentLanguageId();
+	}
+
+	@Override
+	public String getAdditionnalsInformationsCurrentValue() {
+		return _official.getAdditionnalsInformationsCurrentValue();
+	}
+
+	/**
+	 * Returns a map of the locales and localized additionnals informationses of this official.
+	 *
+	 * @return the locales and localized additionnals informationses of this official
+	 */
+	@Override
+	public Map<java.util.Locale, String> getAdditionnalsInformationsMap() {
+		return _official.getAdditionnalsInformationsMap();
 	}
 
 	/**
@@ -1038,6 +1127,79 @@ public class OfficialWrapper implements Official, ModelWrapper<Official> {
 		throws com.liferay.portal.kernel.exception.LocaleException {
 
 		_official.prepareLocalizedFieldsForImport(defaultImportLocale);
+	}
+
+	/**
+	 * Sets the additionnals informations of this official.
+	 *
+	 * @param additionnalsInformations the additionnals informations of this official
+	 */
+	@Override
+	public void setAdditionnalsInformations(String additionnalsInformations) {
+		_official.setAdditionnalsInformations(additionnalsInformations);
+	}
+
+	/**
+	 * Sets the localized additionnals informations of this official in the language.
+	 *
+	 * @param additionnalsInformations the localized additionnals informations of this official
+	 * @param locale the locale of the language
+	 */
+	@Override
+	public void setAdditionnalsInformations(
+		String additionnalsInformations, java.util.Locale locale) {
+
+		_official.setAdditionnalsInformations(additionnalsInformations, locale);
+	}
+
+	/**
+	 * Sets the localized additionnals informations of this official in the language, and sets the default locale.
+	 *
+	 * @param additionnalsInformations the localized additionnals informations of this official
+	 * @param locale the locale of the language
+	 * @param defaultLocale the default locale
+	 */
+	@Override
+	public void setAdditionnalsInformations(
+		String additionnalsInformations, java.util.Locale locale,
+		java.util.Locale defaultLocale) {
+
+		_official.setAdditionnalsInformations(
+			additionnalsInformations, locale, defaultLocale);
+	}
+
+	@Override
+	public void setAdditionnalsInformationsCurrentLanguageId(
+		String languageId) {
+
+		_official.setAdditionnalsInformationsCurrentLanguageId(languageId);
+	}
+
+	/**
+	 * Sets the localized additionnals informationses of this official from the map of locales and localized additionnals informationses.
+	 *
+	 * @param additionnalsInformationsMap the locales and localized additionnals informationses of this official
+	 */
+	@Override
+	public void setAdditionnalsInformationsMap(
+		Map<java.util.Locale, String> additionnalsInformationsMap) {
+
+		_official.setAdditionnalsInformationsMap(additionnalsInformationsMap);
+	}
+
+	/**
+	 * Sets the localized additionnals informationses of this official from the map of locales and localized additionnals informationses, and sets the default locale.
+	 *
+	 * @param additionnalsInformationsMap the locales and localized additionnals informationses of this official
+	 * @param defaultLocale the default locale
+	 */
+	@Override
+	public void setAdditionnalsInformationsMap(
+		Map<java.util.Locale, String> additionnalsInformationsMap,
+		java.util.Locale defaultLocale) {
+
+		_official.setAdditionnalsInformationsMap(
+			additionnalsInformationsMap, defaultLocale);
 	}
 
 	@Override

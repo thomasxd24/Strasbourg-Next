@@ -25,6 +25,12 @@ dependencies {
 	compileInclude group: "org.apache.commons", name: "commons-csv", version: "1.7"
 	compileInclude group: "org.apache.commons", name: "commons-lang3", version: "3.9"
 
+	//compileOnly group: "com.liferay", name: "com.liferay.adaptive.media.image.taglib"
+	//compileOnly group: 'com.liferay', name: 'com.liferay.adaptive.media.image.service'
+	compileOnly group: 'com.liferay', name: 'com.liferay.adaptive.media.image.api'
+	compileOnly group: 'com.liferay', name: 'com.liferay.adaptive.media.api'
+
+
 
 	compile project (':modules:oidc:oidc-api')
 }

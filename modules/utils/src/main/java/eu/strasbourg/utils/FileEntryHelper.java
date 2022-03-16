@@ -1,8 +1,12 @@
 package eu.strasbourg.utils;
 
+import com.liferay.adaptive.media.AdaptiveMedia;
+import com.liferay.adaptive.media.image.finder.AMImageFinder;
+import com.liferay.adaptive.media.image.processor.AMImageProcessor;
 import com.liferay.document.library.kernel.antivirus.AntivirusScannerException;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFolder;
+import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalServiceUtil;
 import com.liferay.document.library.kernel.service.DLFolderLocalServiceUtil;
 import com.liferay.document.library.kernel.util.DLUtil;
@@ -33,6 +37,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Classe Helper pour tout ce qui concerne les fichiers
@@ -93,7 +99,6 @@ public class FileEntryHelper {
 		}
 		return url;
 	}
-
 
 	public static String getReadableFileEntrySize(long fileEntryId, Locale locale) {
 		DLFileEntry fileEntry = DLFileEntryLocalServiceUtil.fetchDLFileEntry(fileEntryId);
@@ -334,6 +339,25 @@ public class FileEntryHelper {
 
 		return map;
 
+	}
+
+	public static String getAdaptiveMedia(long fileEntryId, AMImageFinder _amImageFinder) throws PortalException {
+		String url = getFileEntryURL(fileEntryId);
+		FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(fileEntryId);
+		if(fileEntry != null) {
+			Stream<AdaptiveMedia<AMImageProcessor>> adaptiveMediaStream =
+					_amImageFinder.getAdaptiveMediaStream(
+							amImageQueryBuilder -> amImageQueryBuilder.forFileEntry(fileEntry)
+									.forConfiguration("Thumbnail-300x300").done());
+			List<AdaptiveMedia<AMImageProcessor>> adaptiveMedias = adaptiveMediaStream.collect(Collectors.toList());
+			if(Validator.isNotNull(adaptiveMedias)) {
+				AdaptiveMedia<AMImageProcessor> adaptiveMedia = adaptiveMedias.get(0);
+				if(Validator.isNotNull(adaptiveMedia)) {
+					url = String.valueOf(adaptiveMedia.getURI());
+				}
+			}
+		}
+		return url;
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(FileEntryHelper.class.getName());

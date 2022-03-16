@@ -1,10 +1,12 @@
 package eu.strasbourg.utils;
 
+import com.liferay.adaptive.media.image.finder.AMImageFinder;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import eu.strasbourg.utils.api.FileEntryHelperService;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.io.File;
 import java.util.Locale;
@@ -73,5 +75,13 @@ public class FileEntryHelperImpl implements FileEntryHelperService {
 			throws PortalException {
 		return FileEntryHelper.getPictoForVocabulary(nomRepertoireVocabulaire, nomRepertoire);
 	}
+
+	@Override
+	public String getAdaptiveMedia(long fileEntryId)  throws PortalException{
+		return FileEntryHelper.getAdaptiveMedia(fileEntryId, _amImageFinder);
+	}
+
+	@Reference
+	private AMImageFinder _amImageFinder;
 
 }

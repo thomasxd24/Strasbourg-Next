@@ -1,6 +1,7 @@
 package eu.strasbourg.utils.api;
 
 import aQute.bnd.annotation.ProviderType;
+import com.liferay.adaptive.media.image.finder.AMImageFinder;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -39,5 +40,7 @@ public interface FileEntryHelperService {
 
 	public Map<String, DLFileEntry> getPictoForVocabulary(String nomRepertoireVocabulaire, String nomRepertoire)
 			throws PortalException;
+
+	public String getAdaptiveMedia(long fileEntryId) throws PortalException;
 
 }

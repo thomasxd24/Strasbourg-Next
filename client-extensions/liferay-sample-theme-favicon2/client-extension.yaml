@@ -1,0 +1,7 @@
+assemble:
+    - from: assets
+      into: static
+liferay-sample-theme-favicon2:
+    name: Liferay Sample Theme Favicon 2
+    type: themeFavicon
+    url: favicon.ico

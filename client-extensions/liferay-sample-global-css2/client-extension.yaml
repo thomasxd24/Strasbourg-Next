@@ -1,0 +1,8 @@
+assemble:
+    - from: assets
+      include: "**/*"
+      into: static
+liferay-sample-global-css2:
+    name: Liferay Sample Global CSS 2
+    type: globalCSS
+    url: global.css

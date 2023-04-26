@@ -1,0 +1,9 @@
+@import 'sassy-inputs/sass/main';
+@import 'toto.scss';
+
+header {
+	background-image: url(../img/header_bg.jpg);
+	img{
+		display: none;
+	}
+}

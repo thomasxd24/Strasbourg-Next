@@ -1,3 +1,7 @@
 body {
-	color: #0054f0;
+	color: blue;
+}
+
+.btn-primary {
+	background-color: purple;
 }

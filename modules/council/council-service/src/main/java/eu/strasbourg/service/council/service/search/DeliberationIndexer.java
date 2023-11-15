@@ -9,6 +9,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.*;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import eu.strasbourg.service.council.model.Deliberation;
 import eu.strasbourg.service.council.service.DeliberationLocalServiceUtil;
 import eu.strasbourg.utils.AssetVocabularyHelper;
@@ -72,6 +73,8 @@ public class DeliberationIndexer extends BaseIndexer<Deliberation> {
         document.addNumber(Field.STATUS, deliberation.getStatus());
 
         document.addNumber("order", deliberation.getOrder());
+
+        document.addTextSortable("orderAmendement", padLeftZeros(String.valueOf(deliberation.getOrder()),4)+deliberation.getAmendement());
         return document;
     }
 
@@ -134,6 +137,19 @@ public class DeliberationIndexer extends BaseIndexer<Deliberation> {
 
         indexableActionableDynamicQuery.setSearchEngineId(getSearchEngineId());
         indexableActionableDynamicQuery.performActions();
+    }
+
+    public String padLeftZeros(String inputString, int length) {
+        if (inputString.length() >= length) {
+            return inputString;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < length - inputString.length()) {
+            sb.append('0');
+        }
+        sb.append(inputString);
+
+        return sb.toString();
     }
 
     private final Log _log = LogFactoryUtil.getLog(this.getClass().getName());

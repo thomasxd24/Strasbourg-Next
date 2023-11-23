@@ -64,7 +64,6 @@ services:
       args:
         - DIST_PATH_VERSION=${LFR_TAG_VERSION}
     environment:
-      - JAVA_VERSION=zulu11
       - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_DRIVER_UPPERCASEC_LASS_UPPERCASEN_AME=com.mysql.cj.jdbc.Driver
       - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_URL=jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DB}?characterEncoding=UTF-8&dontTrackOpenResources=true&holdResultsOpenOverStatementClose=true&useFastDateParsing=false&useUnicode=true&serverTimezone=Europe/Paris
       - LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_USERNAME=${MYSQL_USER}
@@ -79,6 +78,11 @@ services:
       #- LIFERAY_CLUSTER_PERIOD_LINK_PERIOD_CHANNEL_PERIOD_PROPERTIES_PERIOD_CONTROL=/opt/liferay/jdbc_ping.xml
       #- LIFERAY_CLUSTER_PERIOD_LINK_PERIOD_CHANNEL_PERIOD_PROPERTIES_PERIOD_TRANSPORT_PERIOD__NUMBER0_=/opt/liferay/jdbc_ping.xml
       #- LIFERAY_CLUSTER_PERIOD_LINK_PERIOD_AUTODETECT_PERIOD_ADDRESS=www.google.com:80
+    volumes:
+      -  ./configs/liferay-ems-active/files:/mnt/liferay/files
+      -  ./configs/liferay-ems-active/deploy:/mnt/liferay/deploy
+      -  ./configs/liferay-ems-active/patching:/mnt/liferay/patching
+      -  ./configs/liferay-ems-active/scripts:/mnt/liferay/scripts
     ports:
       - 8080:8080
       - 8009:8009

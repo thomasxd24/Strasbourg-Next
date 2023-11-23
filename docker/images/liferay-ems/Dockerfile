@@ -19,6 +19,10 @@ RUN mkdir -p /tmp/certificates
 RUN mkdir /data \
     && chown -R liferay:liferay /data
 
+# Création du repertoire de données
+RUN mkdir /mnt/liferay \
+    && chown -R liferay:liferay /mnt/liferay
+
 # Copie du script permettant d'attendre les autres services avant démarrage du serveur
 COPY --chown=liferay:liferay $SOURCES_PATH/wait-for-it.sh /
 RUN chmod +x /wait-for-it.sh
@@ -32,8 +36,10 @@ USER liferay
 RUN mkdir -p /data/import/agenda/archives \
     && mkdir -p /data/liferay/document_library
 
+
 # Dossier dans ./dist contenant les livrables
 ARG DIST_PATH_VERSION
 
 # Copie des livrables dans deploy
 COPY --chown=liferay:liferay $DIST_PATH/$DIST_PATH_VERSION/ /opt/liferay/deploy/
+

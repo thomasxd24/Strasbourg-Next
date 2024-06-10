@@ -3,13 +3,7 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "liferay",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  // For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
-  "forwardPorts": [
-    8080
-  ],
 
 
-
-  "postCreateCommand": "mysql --version",
-  "remoteUser": "liferay"
+  "postCreateCommand": "mysql --version"
 }

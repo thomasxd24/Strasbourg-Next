@@ -1,10 +1,20 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "extensions": [
-    "ms-azuretools.vscode-docker"
+  "name": "Liferay with MySQL and Elasticsearch",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "liferay",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
+  "forwardPorts": [
+    8080
   ],
-  "name": "Ubuntu",
-  "remoteUser": "vscode"
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "16.13.2"
+    }
+  },
+
+
+
+  "postCreateCommand": "mysql --version",
+  "remoteUser": "liferay"
 }

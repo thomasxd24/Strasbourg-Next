@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: lportal
+      MYSQL_USER: lportaluser
+      MYSQL_PASSWORD: lportalpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+
+  liferay:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: liferay
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    environment:
+      LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_URL: jdbc:mysql://mysql:3306/lportal?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false&serverTimezone=UTC
+      LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_USERNAME: lportaluser
+      LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_PASSWORD: lportalpassword
+      LIFERAY_ELASTICSEARCH_PERIOD_REST_PERIOD_URLS: http://elasticsearch:9200
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - elasticsearch
+    volumes:
+      - liferay-data:/opt/liferay/data
+      - ../..:/workspaces:cached
+
+
+volumes:
+  mysql-data:
+  es-data:
+  liferay-data:

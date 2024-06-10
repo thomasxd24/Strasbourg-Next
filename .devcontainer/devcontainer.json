@@ -7,11 +7,6 @@
   "forwardPorts": [
     8080
   ],
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "16.13.2"
-    }
-  },
 
 
 

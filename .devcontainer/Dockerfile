@@ -1,1 +1,1 @@
-FROM ghcr.io/devcontainers/templates/java:3.1.0
+FROM mcr.microsoft.com/devcontainers/java:11

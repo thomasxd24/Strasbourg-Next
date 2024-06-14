@@ -2,8 +2,5 @@
   "name": "Liferay with MySQL and Elasticsearch",
   "dockerComposeFile": "docker-compose.yml",
   "service": "liferay",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
-
-  "postCreateCommand": "mysql --version"
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
